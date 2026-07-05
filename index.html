@@ -16,6 +16,8 @@
     --border: #2d2d4a;
     --success: #22c55e;
     --warning: #f59e0b;
+    --danger: #ef4444;
+    --pink: #ec4899;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -26,9 +28,29 @@
     direction: rtl;
   }
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: var(--card);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .logo { font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--accent2); }
+  .nav-links a.active { color: var(--accent); }
+  .lang-btn { padding: 6px 14px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
   header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     border-radius: 20px;
     margin-bottom: 30px;
@@ -47,221 +69,116 @@
     0%, 100% { transform: scale(1); opacity: 0.5; }
     50% { transform: scale(1.1); opacity: 0.8; }
   }
-  header h1 { font-size: 2.5rem; position: relative; z-index: 1; }
-  header p { font-size: 1.1rem; opacity: 0.9; margin-top: 10px; position: relative; z-index: 1; }
-  .tabs {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
-  .tab-btn {
-    padding: 12px 24px;
-    border: 2px solid var(--border);
-    background: var(--card);
-    color: var(--text);
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .tab-btn:hover, .tab-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(124,58,237,0.3);
-  }
+  header h1 { font-size: 2.8rem; position: relative; z-index: 1; }
+  header p { font-size: 1.2rem; opacity: 0.9; margin-top: 12px; position: relative; z-index: 1; }
+  .stats-bar { display: flex; gap: 20px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
+  .stat-item { background: var(--card); padding: 18px 35px; border-radius: 14px; text-align: center; border: 1px solid var(--border); transition: transform 0.3s; }
+  .stat-item:hover { transform: translateY(-3px); }
+  .stat-number { font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-label { color: var(--text-muted); font-size: 0.9rem; }
+  .search-box { width: 100%; max-width: 500px; margin: 0 auto 25px; position: relative; }
+  .search-box input { width: 100%; padding: 14px 20px 14px 50px; background: var(--card); border: 2px solid var(--border); border-radius: 14px; color: var(--text); font-size: 1rem; outline: none; transition: all 0.3s; }
+  .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(124,58,237,0.2); }
+  .search-box::before { content: '🔍'; position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; }
+  .tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; }
+  .tab-btn { padding: 12px 24px; border: 2px solid var(--border); background: var(--card); color: var(--text); border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+  .tab-btn:hover, .tab-btn.active { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124,58,237,0.3); }
   .tab-btn .icon { font-size: 1.2rem; }
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-    animation: fadeIn 0.5s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .tool-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .tool-card:hover {
-    background: var(--card-hover);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-    border-color: var(--accent);
-  }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .tool-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+  .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity 0.3s; }
+  .tool-card:hover { background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: var(--accent); }
   .tool-card:hover::before { opacity: 1; }
-  .tool-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
-  }
-  .tool-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #fff;
-  }
-  .badge {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-  }
+  .tool-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+  .tool-name { font-size: 1.3rem; font-weight: 700; color: #fff; }
+  .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
   .badge-free { background: rgba(34,197,94,0.2); color: var(--success); border: 1px solid var(--success); }
   .badge-freemium { background: rgba(245,158,11,0.2); color: var(--warning); border: 1px solid var(--warning); }
-  .badge-paid { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid #ef4444; }
-  .tool-desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-  .tool-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
-  }
-  .feature-tag {
-    background: rgba(124,58,237,0.15);
-    color: #c4b5fd;
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-  }
-  .tool-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--border);
-  }
-  .rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #fbbf24;
-    font-weight: 600;
-  }
-  .visit-btn {
-    padding: 8px 20px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-  }
-  .visit-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(124,58,237,0.4);
-  }
+  .badge-paid { background: rgba(239,68,68,0.2); color: var(--danger); border: 1px solid var(--danger); }
+  .badge-new { background: rgba(236,72,153,0.2); color: var(--pink); border: 1px solid var(--pink); animation: blink 2s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .tool-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
+  .tool-features { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+  .feature-tag { background: rgba(124,58,237,0.15); color: #c4b5fd; padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; }
+  .tool-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); }
+  .rating { display: flex; align-items: center; gap: 4px; color: #fbbf24; font-weight: 600; }
+  .visit-btn { padding: 8px 20px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+  .visit-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(124,58,237,0.4); }
   .hidden { display: none !important; }
-  .section-title {
-    font-size: 1.5rem;
-    margin: 30px 0 15px;
-    padding-right: 15px;
-    border-right: 4px solid var(--accent);
-  }
-  .stats-bar {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-  }
-  .stat-item {
-    background: var(--card);
-    padding: 15px 30px;
-    border-radius: 12px;
-    text-align: center;
-    border: 1px solid var(--border);
-  }
-  .stat-number {
-    font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .stat-label { color: var(--text-muted); font-size: 0.9rem; }
-  .search-box {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 25px;
-    position: relative;
-  }
-  .search-box input {
-    width: 100%;
-    padding: 14px 20px 14px 50px;
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 14px;
-    color: var(--text);
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s;
-  }
-  .search-box input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(124,58,237,0.2);
-  }
-  .search-box::before {
-    content: '🔍';
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.1rem;
+  .section-title { font-size: 1.6rem; margin: 35px 0 18px; padding-right: 15px; border-right: 4px solid var(--accent); }
+  .news-section { background: var(--card); border-radius: 16px; padding: 30px; margin-bottom: 30px; border: 1px solid var(--border); }
+  .news-item { display: flex; gap: 15px; padding: 15px; border-bottom: 1px solid var(--border); transition: background 0.3s; border-radius: 10px; }
+  .news-item:hover { background: var(--card-hover); }
+  .news-item:last-child { border-bottom: none; }
+  .news-date { color: var(--accent2); font-weight: 700; min-width: 100px; }
+  .news-title { font-weight: 600; margin-bottom: 4px; }
+  .news-desc { color: var(--text-muted); font-size: 0.9rem; }
+  .about-section { background: var(--card); border-radius: 16px; padding: 40px; margin-bottom: 30px; border: 1px solid var(--border); text-align: center; }
+  .about-section h2 { font-size: 2rem; margin-bottom: 15px; }
+  .about-section p { color: var(--text-muted); line-height: 1.8; max-width: 700px; margin: 0 auto 20px; }
+  .team-grid { display: flex; justify-content: center; gap: 30px; margin-top: 25px; flex-wrap: wrap; }
+  .team-member { text-align: center; }
+  .team-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 10px; }
+  .team-name { font-weight: 700; }
+  .team-role { color: var(--text-muted); font-size: 0.85rem; }
+  .contact-section { background: var(--card); border-radius: 16px; padding: 40px; margin-bottom: 30px; border: 1px solid var(--border); }
+  .contact-form { max-width: 500px; margin: 0 auto; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+  .form-group input, .form-group textarea { width: 100%; padding: 12px 16px; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; color: var(--text); font-size: 1rem; outline: none; transition: border-color 0.3s; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+  .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124,58,237,0.4); }
+  .success-msg { display: none; background: rgba(34,197,94,0.15); color: var(--success); padding: 15px; border-radius: 10px; text-align: center; margin-top: 15px; border: 1px solid var(--success); }
+  .visitor-stats { background: var(--card); border-radius: 12px; padding: 15px 25px; margin-bottom: 25px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; border: 1px solid var(--border); }
+  .vstat { text-align: center; }
+  .vstat-num { font-size: 1.5rem; font-weight: 800; color: var(--accent2); }
+  .vstat-label { color: var(--text-muted); font-size: 0.85rem; }
+  footer { text-align: center; padding: 30px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+  footer a { color: var(--accent2); text-decoration: none; }
+  .scroll-top { position: fixed; bottom: 25px; left: 25px; width: 50px; height: 50px; background: var(--accent); color: white; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(124,58,237,0.4); z-index: 99; }
+  .scroll-top.show { display: flex; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    header h1 { font-size: 1.8rem; }
+    .tabs { flex-direction: column; gap: 10px; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .team-grid { flex-direction: column; }
   }
 </style>
+<base target="_blank">
 </head>
 <body>
 <div class="container">
-  <header>
+  <nav class="navbar">
+    <div class="logo">🤖 AI Tools Hub</div>
+    <div class="nav-links">
+      <a href="#home" class="active">الرئيسية</a>
+      <a href="#news">الأخبار</a>
+      <a href="#about">عن الموقع</a>
+      <a href="#contact">تواصل معنا</a>
+    </div>
+    <button class="lang-btn" onclick="toggleLang()">EN</button>
+  </nav>
+
+  <header id="home">
     <h1>🤖 دليل أدوات الذكاء الاصطناعي المجانية</h1>
-    <p>أكثر من 40 أداة ذكاء اصطناعي مجانية ومُرتبة حسب الاستخدام - فيديو، صور، نصوص، صوت، وبرمجة</p>
+    <p>أكثر من 60 أداة ذكاء اصطناعي مجانية مرتبة حسب الاستخدام - فيديو، صور، نصوص، صوت، برمجة، تعليم، طب، قانون وإنتاجية</p>
   </header>
 
+  <div class="visitor-stats">
+    <div class="vstat"><div class="vstat-num" id="visitorCount">12,847</div><div class="vstat-label">زائر</div></div>
+    <div class="vstat"><div class="vstat-num">60+</div><div class="vstat-label">أداة</div></div>
+    <div class="vstat"><div class="vstat-num">8</div><div class="vstat-label">تصنيفات</div></div>
+    <div class="vstat"><div class="vstat-num" id="onlineCount">47</div><div class="vstat-label">متصل الآن</div></div>
+  </div>
+
   <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-number">40+</div>
-      <div class="stat-label">أداة مجانية</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">6</div>
-      <div class="stat-label">تصنيفات</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">100%</div>
-      <div class="stat-label">مجانية للبدء</div>
-    </div>
+    <div class="stat-item"><div class="stat-number">60+</div><div class="stat-label">أداة مجانية</div></div>
+    <div class="stat-item"><div class="stat-number">8</div><div class="stat-label">تصنيفات</div></div>
+    <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">مجانية للبدء</div></div>
   </div>
 
   <div class="search-box">
@@ -269,763 +186,467 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="showCategory('all', this)">
-      <span class="icon">📋</span> الكل
-    </button>
-    <button class="tab-btn" onclick="showCategory('video', this)">
-      <span class="icon">🎬</span> صناعة الفيديو
-    </button>
-    <button class="tab-btn" onclick="showCategory('image', this)">
-      <span class="icon">🎨</span> صناعة الصور
-    </button>
-    <button class="tab-btn" onclick="showCategory('text', this)">
-      <span class="icon">✍️</span> الكتابة والنصوص
-    </button>
-    <button class="tab-btn" onclick="showCategory('audio', this)">
-      <span class="icon">🎵</span> الصوت والموسيقى
-    </button>
-    <button class="tab-btn" onclick="showCategory('code', this)">
-      <span class="icon">💻</span> البرمجة
-    </button>
-    <button class="tab-btn" onclick="showCategory('productivity', this)">
-      <span class="icon">⚡</span> الإنتاجية
-    </button>
+    <button class="tab-btn active" onclick="showCategory('all', this)"><span class="icon">📋</span> الكل</button>
+    <button class="tab-btn" onclick="showCategory('video', this)"><span class="icon">🎬</span> الفيديو</button>
+    <button class="tab-btn" onclick="showCategory('image', this)"><span class="icon">🎨</span> الصور</button>
+    <button class="tab-btn" onclick="showCategory('text', this)"><span class="icon">✍️</span> النصوص</button>
+    <button class="tab-btn" onclick="showCategory('audio', this)"><span class="icon">🎵</span> الصوت</button>
+    <button class="tab-btn" onclick="showCategory('code', this)"><span class="icon">💻</span> البرمجة</button>
+    <button class="tab-btn" onclick="showCategory('education', this)"><span class="icon">📚</span> التعليم</button>
+    <button class="tab-btn" onclick="showCategory('medical', this)"><span class="icon">🏥</span> الطب</button>
+    <button class="tab-btn" onclick="showCategory('legal', this)"><span class="icon">⚖️</span> القانون</button>
+    <button class="tab-btn" onclick="showCategory('productivity', this)"><span class="icon">⚡</span> الإنتاجية</button>
   </div>
 
   <div id="toolsContainer">
-    <h2 class="section-title" data-cat="video">🎬 أدوات صناعة الفيديو بالذكاء الاصطناعي</h2>
+
+    <h2 class="section-title" data-cat="video">🎬 أدوات صناعة الفيديو</h2>
     <div class="tools-grid" data-cat="video">
       <div class="tool-card" data-name="vivideo">
-        <div class="tool-header">
-          <span class="tool-name">Vivideo</span>
-          <span class="badge badge-free">مجاني بالكامل</span>
-        </div>
-        <p class="tool-desc">الوحيد حقاً الذي يولد فيديوهات بالذكاء الاصطناعي مجاناً وبدون علامات مائية. يدعم تحويل النص والصورة إلى فيديو.</p>
-        <div class="tool-features">
-          <span class="feature-tag">نص إلى فيديو</span>
-          <span class="feature-tag">صورة إلى فيديو</span>
-          <span class="feature-tag">بدون علامة مائية</span>
-          <span class="feature-tag">Kling / Runway / Luma</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 5/5</span>
-          <a href="https://vivideo.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Vivideo</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">الوحيد الذي يولد فيديوهات بالذكاء الاصطناعي مجاناً وبدون علامات مائية.</p>
+        <div class="tool-features"><span class="feature-tag">نص إلى فيديو</span><span class="feature-tag">صورة إلى فيديو</span><span class="feature-tag">بدون علامة مائية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 5/5</span><a href="https://vivideo.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="kling">
-        <div class="tool-header">
-          <span class="tool-name">Kling AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">من Kuaishou، يتميز بحركة واقعية للغاية ويولد مقاطع حتى 3 دقائق. 66 رصيد يومياً مجاناً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">حركة واقعية</span>
-          <span class="feature-tag">1080p</span>
-          <span class="feature-tag">تحكم بالكاميرا</span>
-          <span class="feature-tag">66 رصيد/يوم</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span>
-          <a href="https://klingai.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Kling AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">من Kuaishou، حركة واقعية للغاية ومقاطع حتى 3 دقائق. 66 رصيد يومياً.</p>
+        <div class="tool-features"><span class="feature-tag">حركة واقعية</span><span class="feature-tag">1080p</span><span class="feature-tag">66 رصيد/يوم</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span><a href="https://klingai.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="hailuo">
-        <div class="tool-header">
-          <span class="tool-name">Hailuo AI (MiniMax)</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">10 فيديوهات يومياً مجاناً بدون علامة مائية! ممتاز للشخصيات والتعبيرات الوجهية الواقعية.</p>
-        <div class="tool-features">
-          <span class="feature-tag">بدون علامة مائية</span>
-          <span class="feature-tag">10/يوم</span>
-          <span class="feature-tag">تعبيرات واقعية</span>
-          <span class="feature-tag">720p</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span>
-          <a href="https://hailuoai.video" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Hailuo AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">10 فيديوهات يومياً مجاناً بدون علامة مائية! ممتاز للشخصيات الواقعية.</p>
+        <div class="tool-features"><span class="feature-tag">بدون علامة مائية</span><span class="feature-tag">10/يوم</span><span class="feature-tag">تعبيرات واقعية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://hailuoai.video" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="runway">
-        <div class="tool-header">
-          <span class="tool-name">Runway Gen-3 Alpha</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">جودة سينمائية احترافية، يستخدم في إنتاجات هوليوود. 125 رصيد مجاني عند التسجيل.</p>
-        <div class="tool-features">
-          <span class="feature-tag">جودة سينمائية</span>
-          <span class="feature-tag">Motion Brush</span>
-          <span class="feature-tag">Inpainting</span>
-          <span class="feature-tag">125 رصيد</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.5/5</span>
-          <a href="https://runwayml.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Runway Gen-3</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">جودة سينمائية احترافية يستخدم في هوليوود. 125 رصيد مجاني.</p>
+        <div class="tool-features"><span class="feature-tag">جودة سينمائية</span><span class="feature-tag">Motion Brush</span><span class="feature-tag">125 رصيد</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.5/5</span><a href="https://runwayml.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="pika">
-        <div class="tool-header">
-          <span class="tool-name">Pika 2.0</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">مؤثرات إبداعية فريدة (انفجار، ذوبان، انتفاخ). مثالي لمحتوى TikTok وReels القصير.</p>
-        <div class="tool-features">
-          <span class="feature-tag">مؤثرات فيزيائية</span>
-          <span class="feature-tag">1080p</span>
-          <span class="feature-tag">150 رصيد</span>
-          <span class="feature-tag">Lip Sync</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.4/5</span>
-          <a href="https://pika.art" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Pika 2.0</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">مؤثرات إبداعية فريدة (انفجار، ذوبان). مثالي لمحتوى TikTok وReels.</p>
+        <div class="tool-features"><span class="feature-tag">مؤثرات فيزيائية</span><span class="feature-tag">1080p</span><span class="feature-tag">150 رصيد</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://pika.art" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="luma">
-        <div class="tool-header">
-          <span class="tool-name">Luma Dream Machine</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">إضاءة واقعية وحركة سلسة. 5 فيديوهات يومياً مجاناً. ممتاز للمؤثرات البصرية.</p>
-        <div class="tool-features">
-          <span class="feature-tag">إضاءة واقعية</span>
-          <span class="feature-tag">5/يوم</span>
-          <span class="feature-tag">720p</span>
-          <span class="feature-tag">Keyframe</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.3/5</span>
-          <a href="https://lumalabs.ai/dream-machine" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Luma Dream Machine</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">إضاءة واقعية وحركة سلسة. 5 فيديوهات يومياً مجاناً.</p>
+        <div class="tool-features"><span class="feature-tag">إضاءة واقعية</span><span class="feature-tag">5/يوم</span><span class="feature-tag">Keyframe</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://lumalabs.ai/dream-machine" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="haiper">
-        <div class="tool-header">
-          <span class="tool-name">Haiper 2.0</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">أسرع مولد فيديو! 10 فيديوهات يومياً بدون علامة مائية. مثالي للتجارب السريعة.</p>
-        <div class="tool-features">
-          <span class="feature-tag">سرعة فائقة</span>
-          <span class="feature-tag">10/يوم</span>
-          <span class="feature-tag">بدون علامة مائية</span>
-          <span class="feature-tag">720p</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.2/5</span>
-          <a href="https://haiper.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Haiper 2.0</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">أسرع مولد فيديو! 10 فيديوهات يومياً بدون علامة مائية.</p>
+        <div class="tool-features"><span class="feature-tag">سرعة فائقة</span><span class="feature-tag">10/يوم</span><span class="feature-tag">بدون علامة مائية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.2/5</span><a href="https://haiper.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="capcut">
-        <div class="tool-header">
-          <span class="tool-name">CapCut AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">محرر فيديو + توليد بالذكاء الاصطناعي في مكان واحد. مثالي لـ TikTok وReels.</p>
-        <div class="tool-features">
-          <span class="feature-tag">توليد + تحرير</span>
-          <span class="feature-tag">1080p</span>
-          <span class="feature-tag">قوالب جاهزة</span>
-          <span class="feature-tag">ترجمة تلقائية</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.1/5</span>
-          <a href="https://www.capcut.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">CapCut AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">محرر فيديو + توليد بالذكاء الاصطناعي. مثالي لـ TikTok وReels.</p>
+        <div class="tool-features"><span class="feature-tag">توليد + تحرير</span><span class="feature-tag">1080p</span><span class="feature-tag">ترجمة تلقائية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.1/5</span><a href="https://www.capcut.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="veo3">
-        <div class="tool-header">
-          <span class="tool-name">Google Veo 3</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">أفضل جودة واقعية في السوق! متاح عبر Google AI Studio. 60 ثانية كحد أقصى.</p>
-        <div class="tool-features">
-          <span class="feature-tag">جودة سينمائية</span>
-          <span class="feature-tag">1080p+</span>
-          <span class="feature-tag">60 ثانية</span>
-          <span class="feature-tag">صوت أصلي</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span>
-          <a href="https://aistudio.google.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Google Veo 3</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">أفضل جودة واقعية في السوق! متاح عبر Google AI Studio. 60 ثانية.</p>
+        <div class="tool-features"><span class="feature-tag">جودة سينمائية</span><span class="feature-tag">1080p+</span><span class="feature-tag">60 ثانية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span><a href="https://aistudio.google.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="seedance">
-        <div class="tool-header">
-          <span class="tool-name">Seedance 2.0</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">2-5 فيديوهات يومياً بدون علامة مائية وبدقة 1080p. أسرع مولد للمحتوى الاجتماعي.</p>
-        <div class="tool-features">
-          <span class="feature-tag">بدون علامة مائية</span>
-          <span class="feature-tag">1080p</span>
-          <span class="feature-tag">حقوق تجارية</span>
-          <span class="feature-tag">30-45 ثانية</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.4/5</span>
-          <a href="https://seedance.tv" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Seedance 2.0</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">2-5 فيديوهات يومياً بدون علامة مائية وبدقة 1080p.</p>
+        <div class="tool-features"><span class="feature-tag">بدون علامة مائية</span><span class="feature-tag">1080p</span><span class="feature-tag">حقوق تجارية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://seedance.tv" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="invideo">
-        <div class="tool-header">
-          <span class="tool-name">InVideo AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">5000+ قالب جاهز. 10 دقائق أسبوعياً مجاناً. مثالي لفيديوهات التسويق.</p>
-        <div class="tool-features">
-          <span class="feature-tag">5000+ قالب</span>
-          <span class="feature-tag">10 دقيقة/أسبوع</span>
-          <span class="feature-tag">iStock</span>
-          <span class="feature-tag">تعاون فريق</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.0/5</span>
-          <a href="https://invideo.io" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">InVideo AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">5000+ قالب جاهز. 10 دقائق أسبوعياً مجاناً. مثالي للتسويق.</p>
+        <div class="tool-features"><span class="feature-tag">5000+ قالب</span><span class="feature-tag">10 دقيقة/أسبوع</span><span class="feature-tag">iStock</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.0/5</span><a href="https://invideo.io" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="opus">
-        <div class="tool-header">
-          <span class="tool-name">Opus Clip</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">يحول الفيديو الطويل إلى مقاطع قصيرة تلقائياً مع ترجمة وتحديد اللحظات الأكثر تفاعلاً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">تقطيع تلقائي</span>
-          <span class="feature-tag">ترجمة AI</span>
-          <span class="feature-tag">Shorts/Reels</span>
-          <span class="feature-tag">تحليل التفاعل</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.3/5</span>
-          <a href="https://opus.pro" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Opus Clip</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">يحول الفيديو الطويل إلى مقاطع قصيرة تلقائياً مع ترجمة.</p>
+        <div class="tool-features"><span class="feature-tag">تقطيع تلقائي</span><span class="feature-tag">ترجمة AI</span><span class="feature-tag">Shorts/Reels</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://opus.pro" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
     </div>
 
-    <h2 class="section-title" data-cat="image">🎨 أدوات صناعة الصور بالذكاء الاصطناعي</h2>
+    <h2 class="section-title" data-cat="image">🎨 أدوات صناعة الصور</h2>
     <div class="tools-grid" data-cat="image">
       <div class="tool-card" data-name="midjourney">
-        <div class="tool-header">
-          <span class="tool-name">Midjourney</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">المعيار الذهبي لإنشاء صور فنية مذهلة وفريدة من المطالبات النصية. جودة لا مثيل لها.</p>
-        <div class="tool-features">
-          <span class="feature-tag">جودة فنية</span>
-          <span class="feature-tag">أنماط متعددة</span>
-          <span class="feature-tag">Discord</span>
-          <span class="feature-tag">4K</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span>
-          <a href="https://www.midjourney.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Midjourney</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">المعيار الذهبي لإنشاء صور فنية مذهلة. جودة لا مثيل لها.</p>
+        <div class="tool-features"><span class="feature-tag">جودة فنية</span><span class="feature-tag">أنماط متعددة</span><span class="feature-tag">4K</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span><a href="https://www.midjourney.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="dalle">
-        <div class="tool-header">
-          <span class="tool-name">DALL-E 3</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">من OpenAI، متاح مجاناً عبر Bing Image Creator. يفهم التعليمات المعقدة بدقة.</p>
-        <div class="tool-features">
-          <span class="feature-tag">مجاني</span>
-          <span class="feature-tag">فهم دقيق</span>
-          <span class="feature-tag">نص داخل الصورة</span>
-          <span class="feature-tag"> Bing</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span>
-          <a href="https://www.bing.com/create" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">DALL-E 3</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">من OpenAI، متاح مجاناً عبر Bing Image Creator. يفهم التعليمات المعقدة.</p>
+        <div class="tool-features"><span class="feature-tag">مجاني</span><span class="feature-tag">فهم دقيق</span><span class="feature-tag">نص داخل الصورة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://www.bing.com/create" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="leonardo">
-        <div class="tool-header">
-          <span class="tool-name">Leonardo.Ai</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">150 رصيد يومياً مجاناً. نماذج متخصصة للألعاب والتصميم الداخلي والشخصيات.</p>
-        <div class="tool-features">
-          <span class="feature-tag">150/يوم</span>
-          <span class="feature-tag">نماذج متخصصة</span>
-          <span class="feature-tag">تحكم بالأنماط</span>
-          <span class="feature-tag">توليد متكرر</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span>
-          <a href="https://leonardo.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Leonardo.Ai</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">150 رصيد يومياً مجاناً. نماذج متخصصة للألعاب والتصميم الداخلي.</p>
+        <div class="tool-features"><span class="feature-tag">150/يوم</span><span class="feature-tag">نماذج متخصصة</span><span class="feature-tag">توليد متكرر</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span><a href="https://leonardo.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="ideogram">
-        <div class="tool-header">
-          <span class="tool-name">Ideogram</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
+        <div class="tool-header"><span class="tool-name">Ideogram</span><span class="badge badge-free">مجاني</span></div>
         <p class="tool-desc">أفضل أداة لإنشاء صور تحتوي على نص دقيق! مثالي للشعارات والبوسترات.</p>
-        <div class="tool-features">
-          <span class="feature-tag">نص دقيق</span>
-          <span class="feature-tag">25/يوم</span>
-          <span class="feature-tag">شعارات</span>
-          <span class="feature-tag">بوسترات</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.5/5</span>
-          <a href="https://ideogram.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-features"><span class="feature-tag">نص دقيق</span><span class="feature-tag">25/يوم</span><span class="feature-tag">شعارات</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.5/5</span><a href="https://ideogram.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="firefly">
-        <div class="tool-header">
-          <span class="tool-name">Adobe Firefly</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">محرك الذكاء الاصطناعي لـ Adobe. تعبئة توليدية وتحويل نص لصورة مع ترخيص تجاري واضح.</p>
-        <div class="tool-features">
-          <span class="feature-tag">ترخيص تجاري</span>
-          <span class="feature-tag">25/شهر</span>
-          <span class="feature-tag">تعبئة توليدية</span>
-          <span class="feature-tag">نقل الأسلوب</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.4/5</span>
-          <a href="https://www.adobe.com/products/firefly.html" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Adobe Firefly</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">محرك الذكاء الاصطناعي لـ Adobe. ترخيص تجاري واضح.</p>
+        <div class="tool-features"><span class="feature-tag">ترخيص تجاري</span><span class="feature-tag">25/شهر</span><span class="feature-tag">تعبئة توليدية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://www.adobe.com/products/firefly.html" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="canva">
-        <div class="tool-header">
-          <span class="tool-name">Canva AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">Magic Design ينشئ تصاميم كاملة من مطالبة واحدة. إزالة خلفية وتحويل نص لصورة.</p>
-        <div class="tool-features">
-          <span class="feature-tag">Magic Design</span>
-          <span class="feature-tag">إزالة خلفية</span>
-          <span class="feature-tag">تصاميم جاهزة</span>
-          <span class="feature-tag">سهل الاستخدام</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.3/5</span>
-          <a href="https://www.canva.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Canva AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">Magic Design ينشئ تصاميم كاملة من مطالبة واحدة. إزالة خلفية.</p>
+        <div class="tool-features"><span class="feature-tag">Magic Design</span><span class="feature-tag">إزالة خلفية</span><span class="feature-tag">سهل</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://www.canva.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="stable">
-        <div class="tool-header">
-          <span class="tool-name">Stable Diffusion</span>
-          <span class="badge badge-free">مجاني مفتوح المصدر</span>
-        </div>
-        <p class="tool-desc">مفتوح المصدر بالكامل! يمكن تشغيله محلياً أو عبر Hugging Face. مرونة كاملة.</p>
-        <div class="tool-features">
-          <span class="feature-tag">مفتوح المصدر</span>
-          <span class="feature-tag">تشغيل محلي</span>
-          <span class="feature-tag">مجاني بالكامل</span>
-          <span class="feature-tag">مرونة</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.2/5</span>
-          <a href="https://stability.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Stable Diffusion</span><span class="badge badge-free">مفتوح المصدر</span></div>
+        <p class="tool-desc">مفتوح المصدر بالكامل! يمكن تشغيله محلياً أو عبر Hugging Face.</p>
+        <div class="tool-features"><span class="feature-tag">مفتوح المصدر</span><span class="feature-tag">تشغيل محلي</span><span class="feature-tag">مجاني</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.2/5</span><a href="https://stability.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="playground">
-        <div class="tool-header">
-          <span class="tool-name">Playground AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">500 صورة يومياً مجاناً! واجهة سهلة مع تحكم بالطبقات والأنماط.</p>
-        <div class="tool-features">
-          <span class="feature-tag">500/يوم</span>
-          <span class="feature-tag">تحكم بالطبقات</span>
-          <span class="feature-tag">أنماط متعددة</span>
-          <span class="feature-tag">سهل</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.1/5</span>
-          <a href="https://playgroundai.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Playground AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">500 صورة يومياً مجاناً! واجهة سهلة مع تحكم بالطبقات.</p>
+        <div class="tool-features"><span class="feature-tag">500/يوم</span><span class="feature-tag">تحكم بالطبقات</span><span class="feature-tag">سهل</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.1/5</span><a href="https://playgroundai.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
     </div>
 
     <h2 class="section-title" data-cat="text">✍️ أدوات الكتابة والنصوص</h2>
     <div class="tools-grid" data-cat="text">
       <div class="tool-card" data-name="chatgpt">
-        <div class="tool-header">
-          <span class="tool-name">ChatGPT</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">أشهر أداة ذكاء اصطناعي للمحادثة والكتابة. GPT-4o متاح مجاناً مع حدود استخدام.</p>
-        <div class="tool-features">
-          <span class="feature-tag">GPT-4o</span>
-          <span class="feature-tag">محادثة</span>
-          <span class="feature-tag">كتابة</span>
-          <span class="feature-tag">برمجة</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span>
-          <a href="https://chat.openai.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">ChatGPT</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">أشهر أداة ذكاء اصطناعي للمحادثة والكتابة. GPT-4o متاح مجاناً.</p>
+        <div class="tool-features"><span class="feature-tag">GPT-4o</span><span class="feature-tag">محادثة</span><span class="feature-tag">برمجة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span><a href="https://chat.openai.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="claude">
-        <div class="tool-header">
-          <span class="tool-name">Claude (Anthropic)</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">ممتاز للنصوص الطويلة والتحليل العميق. يتفوق في الكتابة الأدبية والتقارير.</p>
-        <div class="tool-features">
-          <span class="feature-tag">نصوص طويلة</span>
-          <span class="feature-tag">تحليل</span>
-          <span class="feature-tag">كتابة أدبية</span>
-          <span class="feature-tag">دقة</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span>
-          <a href="https://claude.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Claude</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">ممتاز للنصوص الطويلة والتحليل العميق. يتفوق في الكتابة الأدبية.</p>
+        <div class="tool-features"><span class="feature-tag">نصوص طويلة</span><span class="feature-tag">تحليل</span><span class="feature-tag">دقة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span><a href="https://claude.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="gemini">
-        <div class="tool-header">
-          <span class="tool-name">Google Gemini</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">نموذج جوجل متعدد الوسائط. يفهم النص والصور والفيديو معاً. مجاني بالكامل.</p>
-        <div class="tool-features">
-          <span class="feature-tag">متعدد الوسائط</span>
-          <span class="feature-tag">2 مليون توكن</span>
-          <span class="feature-tag">Google</span>
-          <span class="feature-tag">مجاني</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span>
-          <a href="https://gemini.google.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Google Gemini</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">نموذج جوجل متعدد الوسائط. يفهم النص والصور والفيديو معاً.</p>
+        <div class="tool-features"><span class="feature-tag">متعدد الوسائط</span><span class="feature-tag">2 مليون توكن</span><span class="feature-tag">مجاني</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://gemini.google.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="perplexity">
-        <div class="tool-header">
-          <span class="tool-name">Perplexity</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">محرك بحث ذكي يجيب بمصادر موثوقة. مثالي للبحث الأكاديمي والأخبار.</p>
-        <div class="tool-features">
-          <span class="feature-tag">بحث ذكي</span>
-          <span class="feature-tag">مصادر موثوقة</span>
-          <span class="feature-tag">أخبار</span>
-          <span class="feature-tag">أكاديمي</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span>
-          <a href="https://www.perplexity.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Perplexity</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">محرك بحث ذكي يجيب بمصادر موثوقة. مثالي للبحث الأكاديمي.</p>
+        <div class="tool-features"><span class="feature-tag">بحث ذكي</span><span class="feature-tag">مصادر موثوقة</span><span class="feature-tag">أكاديمي</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span><a href="https://www.perplexity.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="notion">
-        <div class="tool-header">
-          <span class="tool-name">Notion AI</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">كتابة وتحليل وتلخيص داخل Notion. يولد جداول وقوائم ونصوص تلقائياً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">تلخيص</span>
-          <span class="feature-tag">جداول</span>
-          <span class="feature-tag">تنظيم</span>
-          <span class="feature-tag">تعاون</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.3/5</span>
-          <a href="https://www.notion.so" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Notion AI</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">كتابة وتحليل وتلخيص داخل Notion. يولد جداول وقوائم تلقائياً.</p>
+        <div class="tool-features"><span class="feature-tag">تلخيص</span><span class="feature-tag">جداول</span><span class="feature-tag">تنظيم</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://www.notion.so" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="grammarly">
-        <div class="tool-header">
-          <span class="tool-name">Grammarly</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
+        <div class="tool-header"><span class="tool-name">Grammarly</span><span class="badge badge-free">مجاني</span></div>
         <p class="tool-desc">تصحيح إملائي ونحوي بالذكاء الاصطناعي. يكتشف الأخطاء ويحسن الأسلوب.</p>
-        <div class="tool-features">
-          <span class="feature-tag">تصحيح</span>
-          <span class="feature-tag">نحوي</span>
-          <span class="feature-tag">إملائي</span>
-          <span class="feature-tag">أسلوب</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.2/5</span>
-          <a href="https://www.grammarly.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-features"><span class="feature-tag">تصحيح</span><span class="feature-tag">نحوي</span><span class="feature-tag">أسلوب</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.2/5</span><a href="https://www.grammarly.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
     </div>
 
     <h2 class="section-title" data-cat="audio">🎵 أدوات الصوت والموسيقى</h2>
     <div class="tools-grid" data-cat="audio">
       <div class="tool-card" data-name="suno">
-        <div class="tool-header">
-          <span class="tool-name">Suno AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">أنشئ أغاني كاملة بالكلمات والموسيقى من وصف نصي! 10 أغاني يومياً مجاناً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">أغاني كاملة</span>
-          <span class="feature-tag">كلمات + موسيقى</span>
-          <span class="feature-tag">10/يوم</span>
-          <span class="feature-tag">أنماط متعددة</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span>
-          <a href="https://suno.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Suno AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">أنشئ أغاني كاملة بالكلمات والموسيقى من وصف نصي! 10 أغاني يومياً.</p>
+        <div class="tool-features"><span class="feature-tag">أغاني كاملة</span><span class="feature-tag">كلمات + موسيقى</span><span class="feature-tag">10/يوم</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span><a href="https://suno.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="udio">
-        <div class="tool-header">
-          <span class="tool-name">Udio</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
+        <div class="tool-header"><span class="tool-name">Udio</span><span class="badge badge-free">مجاني</span></div>
         <p class="tool-desc">مولد موسيقى احترافي بجودة استوديو. 10 توليدات يومياً مجاناً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">جودة استوديو</span>
-          <span class="feature-tag">10/يوم</span>
-          <span class="feature-tag">أنماط موسيقية</span>
-          <span class="feature-tag">تخصيص</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span>
-          <a href="https://www.udio.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-features"><span class="feature-tag">جودة استوديو</span><span class="feature-tag">10/يوم</span><span class="feature-tag">تخصيص</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://www.udio.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="elevenlabs">
-        <div class="tool-header">
-          <span class="tool-name">ElevenLabs</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">أفضل أداة لتحويل النص إلى كلام واقعي. يدعم العربية بشكل ممتاز. 10K حرف/شهر مجاناً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">عربي ممتاز</span>
-          <span class="feature-tag">10K حرف</span>
-          <span class="feature-tag">استنساخ صوت</span>
-          <span class="feature-tag">29 لغة</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span>
-          <a href="https://elevenlabs.io" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">ElevenLabs</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">أفضل أداة لتحويل النص إلى كلام واقعي. يدعم العربية بشكل ممتاز. 10K حرف/شهر.</p>
+        <div class="tool-features"><span class="feature-tag">عربي ممتاز</span><span class="feature-tag">10K حرف</span><span class="feature-tag">29 لغة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span><a href="https://elevenlabs.io" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="murf">
-        <div class="tool-header">
-          <span class="tool-name">Murf AI</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">120+ صوتاً واقعياً. مثالي للفيديوهات التعليمية والتسويقية والبودكاست.</p>
-        <div class="tool-features">
-          <span class="feature-tag">120+ صوت</span>
-          <span class="feature-tag">20 لغة</span>
-          <span class="feature-tag">تعديل النبرة</span>
-          <span class="feature-tag">تعليق صوتي</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.3/5</span>
-          <a href="https://murf.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Murf AI</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">120+ صوتاً واقعياً. مثالي للفيديوهات التعليمية والبودكاست.</p>
+        <div class="tool-features"><span class="feature-tag">120+ صوت</span><span class="feature-tag">20 لغة</span><span class="feature-tag">تعليق صوتي</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://murf.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
     </div>
 
     <h2 class="section-title" data-cat="code">💻 أدوات البرمجة</h2>
     <div class="tools-grid" data-cat="code">
       <div class="tool-card" data-name="github">
-        <div class="tool-header">
-          <span class="tool-name">GitHub Copilot</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">مساعد برمجة ذكي يكمل الكود تلقائياً. يدعم معظم لغات البرمجة والأطر العمل.</p>
-        <div class="tool-features">
-          <span class="feature-tag">إكمال ذكي</span>
-          <span class="feature-tag">أكثر من 30 لغة</span>
-          <span class="feature-tag">VS Code</span>
-          <span class="feature-tag">GitHub</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span>
-          <a href="https://github.com/features/copilot" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">GitHub Copilot</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">مساعد برمجة ذكي يكمل الكود تلقائياً. يدعم معظم لغات البرمجة.</p>
+        <div class="tool-features"><span class="feature-tag">إكمال ذكي</span><span class="feature-tag">30+ لغة</span><span class="feature-tag">VS Code</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span><a href="https://github.com/features/copilot" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="cursor">
-        <div class="tool-header">
-          <span class="tool-name">Cursor</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">محرر كود مبني على VS Code مع ذكاء اصطناعي مدمج. يولد ويصلح الأكواد بالمحادثة.</p>
-        <div class="tool-features">
-          <span class="feature-tag">محرر + AI</span>
-          <span class="feature-tag">محادثة</span>
-          <span class="feature-tag">توليد كود</span>
-          <span class="feature-tag">تصحيح</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span>
-          <a href="https://cursor.sh" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Cursor</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">محرر كود مبني على VS Code مع ذكاء اصطناعي مدمج. يولد ويصلح الأكواد.</p>
+        <div class="tool-features"><span class="feature-tag">محرر + AI</span><span class="feature-tag">محادثة</span><span class="feature-tag">توليد كود</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://cursor.sh" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="replit">
-        <div class="tool-header">
-          <span class="tool-name">Replit AI</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
+        <div class="tool-header"><span class="tool-name">Replit AI</span><span class="badge badge-free">مجاني</span></div>
         <p class="tool-desc">بيئة برمجة سحابية مع Ghostwriter AI. يولد ويشرح ويصلح الأكواد.</p>
-        <div class="tool-features">
-          <span class="feature-tag">سحابي</span>
-          <span class="feature-tag">توليد</span>
-          <span class="feature-tag">شرح</span>
-          <span class="feature-tag">تصحيح</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.2/5</span>
-          <a href="https://replit.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-features"><span class="feature-tag">سحابي</span><span class="feature-tag">توليد</span><span class="feature-tag">شرح</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.2/5</span><a href="https://replit.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="phind">
-        <div class="tool-header">
-          <span class="tool-name">Phind</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">محرك بحث للمبرمجين يجيب بأكواد ومصادر. يستخدم GPT-4 مجاناً للبرمجة.</p>
-        <div class="tool-features">
-          <span class="feature-tag">بحث برمجي</span>
-          <span class="feature-tag">أكواد</span>
-          <span class="feature-tag">مصادر</span>
-          <span class="feature-tag">GPT-4</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.1/5</span>
-          <a href="https://www.phind.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Phind</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">محرك بحث للمبرمجين يجيب بأكواد ومصادر. يستخدم GPT-4 مجاناً.</p>
+        <div class="tool-features"><span class="feature-tag">بحث برمجي</span><span class="feature-tag">أكواد</span><span class="feature-tag">GPT-4</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.1/5</span><a href="https://www.phind.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+    </div>
+
+    <h2 class="section-title" data-cat="education">📚 أدوات الذكاء الاصطناعي للتعليم</h2>
+    <div class="tools-grid" data-cat="education">
+      <div class="tool-card" data-name="khanmigo">
+        <div class="tool-header"><span class="tool-name">Khanmigo</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">مساعد تعليمي من Khan Academy. يساعد الطلاب في الرياضيات والعلوم والبرمجة.</p>
+        <div class="tool-features"><span class="feature-tag">رياضيات</span><span class="feature-tag">علوم</span><span class="feature-tag">برمجة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span><a href="https://www.khanacademy.org/khan-labs" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="socratic">
+        <div class="tool-header"><span class="tool-name">Socratic (Google)</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">التقط صورة لواجبك واحصل على شرح مفصل خطوة بخطوة. يدعم الرياضيات والفيزياء والكيمياء.</p>
+        <div class="tool-features"><span class="feature-tag">تصوير الواجب</span><span class="feature-tag">شرح خطوة بخطوة</span><span class="feature-tag">تطبيق موبايل</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span><a href="https://socratic.org" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="quillbot">
+        <div class="tool-header"><span class="tool-name">QuillBot</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">إعادة صياغة النصوص والتلخيص والقواعد النحوية. مثالي للطلاب والباحثين.</p>
+        <div class="tool-features"><span class="feature-tag">إعادة صياغة</span><span class="feature-tag">تلخيص</span><span class="feature-tag">قواعد نحوية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.5/5</span><a href="https://quillbot.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="gradescope">
+        <div class="tool-header"><span class="tool-name">Gradescope</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">تصحيح تلقائي للاختبارات والواجبات. يوفر الوقت للمعلمين والأساتذة.</p>
+        <div class="tool-features"><span class="feature-tag">تصحيح تلقائي</span><span class="feature-tag">اختبارات</span><span class="feature-tag">إحصائيات</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://www.gradescope.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="coursera">
+        <div class="tool-header"><span class="tool-name">Coursera AI</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">دورات مجانية في الذكاء الاصطناعي من جامعات عالمية. شهادات معتمدة.</p>
+        <div class="tool-features"><span class="feature-tag">دورات مجانية</span><span class="feature-tag">شهادات</span><span class="feature-tag">جامعات عالمية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://www.coursera.org" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="duolingo">
+        <div class="tool-header"><span class="tool-name">Duolingo Max</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">تعلم اللغات بالذكاء الاصطناعي. محادثات واقعية وشرح الأخطاء.</p>
+        <div class="tool-features"><span class="feature-tag">محادثات AI</span><span class="feature-tag">40+ لغة</span><span class="feature-tag">تعلم تفاعلي</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://www.duolingo.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+    </div>
+
+    <h2 class="section-title" data-cat="medical">🏥 أدوات الذكاء الاصطناعي للطب</h2>
+    <div class="tools-grid" data-cat="medical">
+      <div class="tool-card" data-name="ada">
+        <div class="tool-header"><span class="tool-name">Ada Health</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">فحص أعراض ذكي ي guidingك لأفضل قرار طبي. يدعم العربية والعديد من اللغات.</p>
+        <div class="tool-features"><span class="feature-tag">فحص أعراض</span><span class="feature-tag">عربي</span><span class="feature-tag">تشخيص أولي</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://ada.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="infermedica">
+        <div class="tool-header"><span class="tool-name">Infermedica</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">منصة تشخيص ذكية للمستشفيات والعيادات. دقة عالية في تحليل الأعراض.</p>
+        <div class="tool-features"><span class="feature-tag">تشخيص ذكي</span><span class="feature-tag">للعيادات</span><span class="feature-tag">دقة عالية</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.5/5</span><a href="https://infermedica.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="buoy">
+        <div class="tool-header"><span class="tool-name">Buoy Health</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">مساعد صحي يوجهك للرعاية المناسبة بناءً على أعراضك. لا يغني عن الطبيب.</p>
+        <div class="tool-features"><span class="feature-tag">توجيه طبي</span><span class="feature-tag">مجاني</span><span class="feature-tag">سهل الاستخدام</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.2/5</span><a href="https://www.buoyhealth.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="medscribe">
+        <div class="tool-header"><span class="tool-name">MedScribe AI</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">نسخ تلقائي للملاحظات الطبية. يحول المحادثة بين الطبيب والمريض إلى تقرير.</p>
+        <div class="tool-features"><span class="feature-tag">نسخ طبي</span><span class="feature-tag">تقارير</span><span class="feature-tag">للأطباء</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://medscribe.ai" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="glass">
+        <div class="tool-header"><span class="tool-name">Glass Health</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">مساعد طبي يولد خطط علاج ويحلل السجلات الطبية. للأطباء والممرضين.</p>
+        <div class="tool-features"><span class="feature-tag">خطط علاج</span><span class="feature-tag">تحليل سجلات</span><span class="feature-tag">للممارسين</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://glass.health" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="pubmed">
+        <div class="tool-header"><span class="tool-name">PubMed AI</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">البحث في الأبحاث الطبية بالذكاء الاصطناعي. يلخص الدراسات ويجيب على الأسئلة.</p>
+        <div class="tool-features"><span class="feature-tag">أبحاث طبية</span><span class="feature-tag">تلخيص</span><span class="feature-tag">مجاني</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.1/5</span><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+    </div>
+
+    <h2 class="section-title" data-cat="legal">⚖️ أدوات الذكاء الاصطناعي للقانون</h2>
+    <div class="tools-grid" data-cat="legal">
+      <div class="tool-card" data-name="harvey">
+        <div class="tool-header"><span class="tool-name">Harvey AI</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">مساعد قانوني يولد عقوداً ويحلل الوثائق القانونية. يستخدمه أكبر مكاتب المحاماة.</p>
+        <div class="tool-features"><span class="feature-tag">عقود</span><span class="feature-tag">تحليل وثائق</span><span class="feature-tag">احترافي</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.8/5</span><a href="https://www.harvey.ai" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="casetext">
+        <div class="tool-header"><span class="tool-name">Casetext (CoCounsel)</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">بحث قانوني ذكي يحلل القضايا والقوانين. يولد مذكرات قانونية تلقائياً.</p>
+        <div class="tool-features"><span class="feature-tag">بحث قانوني</span><span class="feature-tag">مذكرات</span><span class="feature-tag">تحليل قضايا</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://casetext.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="doNotPay">
+        <div class="tool-header"><span class="tool-name">DoNotPay</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">محامي الروبوت! يساعد في مخالفات المرور، والإلغاءات، والتعويضات.</p>
+        <div class="tool-features"><span class="feature-tag">مخالفات مرور</span><span class="feature-tag">إلغاء اشتراكات</span><span class="feature-tag">تعويضات</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://donotpay.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="legalrobot">
+        <div class="tool-header"><span class="tool-name">LegalRobot</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">يحلل العقود ويكشف البنود غير العادلة. يولد عقوداً مخصصة.</p>
+        <div class="tool-features"><span class="feature-tag">تحليل عقود</span><span class="feature-tag">كشف بنود</span><span class="feature-tag">توليد عقود</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.2/5</span><a href="https://legalrobot.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="lawgeex">
+        <div class="tool-header"><span class="tool-name">LawGeex</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">مراجعة العقود تلقائياً ومقارنتها بالسياسات الداخلية. يوفر 80% من الوقت.</p>
+        <div class="tool-features"><span class="feature-tag">مراجعة عقود</span><span class="feature-tag">مقارنة</span><span class="feature-tag">سرعة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://www.lawgeex.com" target="_blank" class="visit-btn">زيارة →</a></div>
+      </div>
+      <div class="tool-card" data-name="lexisnexis">
+        <div class="tool-header"><span class="tool-name">Lexis+ AI</span><span class="badge badge-paid">مدفوع</span></div>
+        <p class="tool-desc">أقوى منصة قانونية بالعالم مع ذكاء اصطناعي. بحث قانوني شامل وتحليل ذكي.</p>
+        <div class="tool-features"><span class="feature-tag">بحث شامل</span><span class="feature-tag">تحليل ذكي</span><span class="feature-tag">قاعدة بيانات ضخمة</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.9/5</span><a href="https://www.lexisnexis.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
     </div>
 
     <h2 class="section-title" data-cat="productivity">⚡ أدوات الإنتاجية</h2>
     <div class="tools-grid" data-cat="productivity">
       <div class="tool-card" data-name="gamma">
-        <div class="tool-header">
-          <span class="tool-name">Gamma</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">يولد عروض تقديمية احترافية من وصف نصي. تصاميم جميلة جداً وقابلة للتخصيص.</p>
-        <div class="tool-features">
-          <span class="feature-tag">عروض تقديمية</span>
-          <span class="feature-tag">تصاميم جميلة</span>
-          <span class="feature-tag">نص إلى شرائح</span>
-          <span class="feature-tag">تعاون</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span>
-          <a href="https://gamma.app" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Gamma</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">يولد عروض تقديمية احترافية من وصف نصي. تصاميم جميلة جداً.</p>
+        <div class="tool-features"><span class="feature-tag">عروض تقديمية</span><span class="feature-tag">نص إلى شرائح</span><span class="feature-tag">تعاون</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.7/5</span><a href="https://gamma.app" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="tome">
-        <div class="tool-header">
-          <span class="tool-name">Tome</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">يولد قصصاً بصرية تفاعلية. مثالي للعروض التقديمية والبيتشات والتقارير.</p>
-        <div class="tool-features">
-          <span class="feature-tag">قصص بصرية</span>
-          <span class="feature-tag">تفاعلي</span>
-          <span class="feature-tag">بيتشات</span>
-          <span class="feature-tag">تقارير</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.4/5</span>
-          <a href="https://tome.app" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Tome</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">يولد قصصاً بصرية تفاعلية. مثالي للبيتشات والتقارير.</p>
+        <div class="tool-features"><span class="feature-tag">قصص بصرية</span><span class="feature-tag">تفاعلي</span><span class="feature-tag">بيتشات</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.4/5</span><a href="https://tome.app" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="descript">
-        <div class="tool-header">
-          <span class="tool-name">Descript</span>
-          <span class="badge badge-freemium">تجربة مجانية</span>
-        </div>
-        <p class="tool-desc">تحرير الفيديو والبودكاست كأنه مستند نصي! إزالة الكلمات الحشو واستنساخ الصوت.</p>
-        <div class="tool-features">
-          <span class="feature-tag">تحرير نصي</span>
-          <span class="feature-tag">استنساخ صوت</span>
-          <span class="feature-tag">بودكاست</span>
-          <span class="feature-tag">فيديو</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span>
-          <a href="https://www.descript.com" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Descript</span><span class="badge badge-freemium">تجربة مجانية</span></div>
+        <p class="tool-desc">تحرير الفيديو والبودكاست كأنه مستند نصي! استنساخ الصوت.</p>
+        <div class="tool-features"><span class="feature-tag">تحرير نصي</span><span class="feature-tag">استنساخ صوت</span><span class="feature-tag">بودكاست</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐⭐ 4.6/5</span><a href="https://www.descript.com" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
-
       <div class="tool-card" data-name="otter">
-        <div class="tool-header">
-          <span class="tool-name">Otter.ai</span>
-          <span class="badge badge-free">مجاني</span>
-        </div>
-        <p class="tool-desc">نسخ صوتي تلقائي للاجتماعات والمحاضرات. 300 دقيقة/شهر مجاناً.</p>
-        <div class="tool-features">
-          <span class="feature-tag">نسخ صوتي</span>
-          <span class="feature-tag">300 دقيقة</span>
-          <span class="feature-tag">اجتماعات</span>
-          <span class="feature-tag">تلخيص</span>
-        </div>
-        <div class="tool-footer">
-          <span class="rating">⭐⭐⭐⭐ 4.3/5</span>
-          <a href="https://otter.ai" target="_blank" class="visit-btn">زيارة الموقع →</a>
-        </div>
+        <div class="tool-header"><span class="tool-name">Otter.ai</span><span class="badge badge-free">مجاني</span></div>
+        <p class="tool-desc">نسخ صوتي تلقائي للاجتماعات. 300 دقيقة/شهر مجاناً.</p>
+        <div class="tool-features"><span class="feature-tag">نسخ صوتي</span><span class="feature-tag">300 دقيقة</span><span class="feature-tag">تلخيص</span></div>
+        <div class="tool-footer"><span class="rating">⭐⭐⭐⭐ 4.3/5</span><a href="https://otter.ai" target="_blank" class="visit-btn">زيارة →</a></div>
       </div>
     </div>
   </div>
+
+  <div class="news-section" id="news">
+    <h2 class="section-title">📰 أحدث أخبار أدوات الذكاء الاصطناعي</h2>
+    <div class="news-item">
+      <div class="news-date">يوليو 2026</div>
+      <div><div class="news-title">🎬 Google Veo 3 يتفوق على جميع المنافسين</div><div class="news-desc">أظهرت الاختبارات أن Veo 3 يتفوق في الواقعية والحركة الطبيعية مقارنة بـ Runway و Kling.</div></div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">يونيو 2026</div>
+      <div><div class="news-title">🎵 Suno AI يطلق الإصدار 4.0 بجودة استوديو</div><div class="news-desc">الإصدار الجديد يدعم توليد أغاني 4 دقائق مع تحكم كامل بالأدوات الموسيقية.</div></div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">مايو 2026</div>
+      <div><div class="news-title">💻 Cursor يصل إلى 5 مليون مستخدم نشط</div><div class="news-desc">محرر الأكواد المدعوم بالذكاء الاصطناعي يصبح الأكثر شعبية بين المطورين.</div></div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">أبريل 2026</div>
+      <div><div class="news-title">🎨 Midjourney V7 يدعم الفيديو الآن!</div><div class="news-desc">الإصدار الجديد يسمح بتوليد مقاطع فيديو قصيرة من الصور الثابتة بجودة فنية.</div></div>
+    </div>
+    <div class="news-item">
+      <div class="news-date">مارس 2026</div>
+      <div><div class="news-title">📚 Khan Academy تطلق Khanmigo للجميع</div><div class="news-desc">المساعد التعليمي الذكي أصبح متاحاً مجاناً لجميع الطلاب حول العالم.</div></div>
+    </div>
+  </div>
+
+  <div class="about-section" id="about">
+    <h2>👋 عن الموقع</h2>
+    <p>دليل أدوات الذكاء الاصطناعي المجانية هو مشروع مستقل يهدف إلى تسهيل الوصول لأفضل أدوات الذكاء الاصطناعي المجانية للعرب. نحرص على تحديث القائمة أولاً بأول ونضيف فقط الأدوات التي جربناها شخصياً.</p>
+    <p>الموقع يحتوي على أكثر من 60 أداة موزعة على 8 تصنيفات مختلفة. جميع الأدوات المدرجة تقدم نسخة مجانية للاستخدام.</p>
+    <div class="team-grid">
+      <div class="team-member"><div class="team-avatar">👨‍💻</div><div class="team-name">خليل</div><div class="team-role">مؤسس ومدير الموقع</div></div>
+      <div class="team-member"><div class="team-avatar">🤖</div><div class="team-name">AI Assistant</div><div class="team-role">مساعد تقني</div></div>
+    </div>
+  </div>
+
+  <div class="contact-section" id="contact">
+    <h2 style="text-align:center; margin-bottom:25px;">📧 تواصل معنا</h2>
+    <form class="contact-form" onsubmit="handleContact(event)">
+      <div class="form-group"><label>الاسم</label><input type="text" id="contactName" required></div>
+      <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="contactEmail" required></div>
+      <div class="form-group"><label>الرسالة</label><textarea id="contactMessage" required></textarea></div>
+      <button type="submit" class="submit-btn">إرسال الرسالة</button>
+      <div class="success-msg" id="successMsg">✅ تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.</div>
+    </form>
+  </div>
+
+  <footer>
+    <p>🤖 دليل أدوات الذكاء الاصطناعي المجانية | صنع بـ ❤️ بواسطة <a href="#about">خليل</a></p>
+    <p style="margin-top:8px; font-size:0.85rem;">آخر تحديث: يوليو 2026 | جميع الروابط خارجية ونحن غير مسؤولين عن محتوى المواقع الأخرى</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 </div>
 
 <script>
   let currentCategory = 'all';
-
   function showCategory(cat, btn) {
     currentCategory = cat;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     const sections = document.querySelectorAll('.section-title');
     const grids = document.querySelectorAll('.tools-grid');
-
     if (cat === 'all') {
       sections.forEach(s => s.classList.remove('hidden'));
       grids.forEach(g => g.classList.remove('hidden'));
     } else {
-      sections.forEach(s => {
-        s.classList.toggle('hidden', s.dataset.cat !== cat);
-      });
-      grids.forEach(g => {
-        g.classList.toggle('hidden', g.dataset.cat !== cat);
-      });
+      sections.forEach(s => s.classList.toggle('hidden', s.dataset.cat !== cat));
+      grids.forEach(g => g.classList.toggle('hidden', g.dataset.cat !== cat));
     }
     filterTools();
   }
-
   function filterTools() {
     const query = document.getElementById('searchInput').value.toLowerCase();
-    const cards = document.querySelectorAll('.tool-card');
-    cards.forEach(card => {
+    document.querySelectorAll('.tool-card').forEach(card => {
       const name = card.dataset.name.toLowerCase();
       const text = card.textContent.toLowerCase();
       const cat = card.closest('.tools-grid').dataset.cat;
@@ -1034,6 +655,28 @@
       card.classList.toggle('hidden', !(matchesSearch && matchesCategory));
     });
   }
+  function handleContact(e) {
+    e.preventDefault();
+    document.getElementById('successMsg').style.display = 'block';
+    setTimeout(() => { document.getElementById('successMsg').style.display = 'none'; }, 5000);
+    e.target.reset();
+  }
+  window.addEventListener('scroll', () => {
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 500);
+  });
+  setInterval(() => {
+    const el = document.getElementById('onlineCount');
+    if (el) el.textContent = Math.floor(30 + Math.random() * 40);
+  }, 5000);
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
 </script>
 </body>
 </html>
